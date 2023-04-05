@@ -6,7 +6,7 @@
 
 <body>
 
-<mai layout:fragment="main">
+<main layout:fragment="main">
     <th:block th:unless="${@rq.member.hasConnectedInstaMember}">
         <div>먼저 본인의 인스타그램 아이디를 입력해주세요.</div>
 
@@ -15,17 +15,38 @@
         </div>
     </th:block>
 
-    <th:block th:if="${@rq.member.hasConnectedInstaMember}">
-        <ul>
-            <li th:each="likeablePerson: ${likeablePeople}">
-                <span class="toInstaMember_username" th:text="${likeablePerson.toInstaMember.username}"></span>
-                <span class="toInstaMember_attractiveTypeDisplayName"
-                      th:text="${likeablePerson.attractiveTypeDisplayName}"></span>
-                <a th:href="@{|delete/${likeablePerson.id}|}" onclick="return confirm('정말로 삭제하시겠습니까?');">삭제</a>
-            </li>
-        </ul>
-    </th:block>
-</mai>
+    <div class="overflow-x-auto">
+        <table class="table w-full">
+            <thead>
+            <tr>
+                <th>번호</th>
+                <th>인스타 아이디</th>
+                <th>호감 표시</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+
+
+            <th:block th:if="${@rq.member.hasConnectedInstaMember}">
+
+                <tr class="container my-3" th:each="likeablePerson, loop : ${likeablePeople}">
+                    <td>
+                        <a th:text="${loop.count}"></a>
+                    </td>
+                    <td class="toInstaMember_username" th:text="${likeablePerson.toInstaMember.username}"></td>
+                    <td class="toInstaMember_attractiveTypeDisplayName"
+                        th:text="${likeablePerson.attractiveTypeDisplayName}"></td>
+                    <th>
+                        <a class="btn btn-sm btn-primary" th:href="@{|/likeablePerson/delete/${likeablePerson.id}|}"
+                           onclick="return confirm('정말로 삭제하시겠습니까?');">삭제</a>
+                    </th>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
+</main>
 </body>
 
 </html>
