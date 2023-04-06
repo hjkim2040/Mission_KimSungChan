@@ -38,8 +38,10 @@
                     <td class="toInstaMember_attractiveTypeDisplayName"
                         th:text="${likeablePerson.attractiveTypeDisplayName}"></td>
                     <th>
-                        <a class="btn btn-sm btn-primary" th:href="@{|/likeablePerson/delete/${likeablePerson.id}|}"
-                           onclick="return confirm('정말로 삭제하시겠습니까?');">삭제</a>
+                        <a class="btn btn-sm btn-primary" href="javascript:;" onclick="if ( confirm('정말로 삭제하시겠습니까?') ) $(this).next().submit();">삭제</a>
+                        <form hidden th:action="@{|/likeablePerson/${likeablePerson.id}|}" method="POST">
+                            <input type="hidden" name="_method" value="delete">
+                        </form>
                     </th>
                 </tr>
             </th:block>
