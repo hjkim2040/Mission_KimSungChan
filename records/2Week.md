@@ -37,7 +37,10 @@
 - 목록이 비어 있지 않은 경우, 즉 fromInstaMemberId 및 toInstaMemberId가 동일한 LikeablePerson 객체가 이미 존재하는 경우 오류 메시지 출력
 - LikeablePersonRepository에서 findByFromInstaMemberId 메서드를 호출하여 회원이 이미 10개 이상의 호감 상대를 가지고 있는지 확인
 - 반환된 리스트의 크기가 10보다 크면 11개 이상의 호감을 가질 수 없음을 알리는 오류 메시지를 출력
-
+- 중복된 호감 표시를 발견했을 때 existingLikes리스트에서 LikeablePerson객체를 검색 
+- LikeablePerson의 호감사유가 existingLikes의 호감 사유와 다른지 확인
+- 그 이유가 다르면 LikeablePerson 객체의 호감 사유를 변경하고 변경 사항을 리포지토리에 저장한 후 성공 메시지를 출력
+- 호감 사유가 같으면 원래 오류 메시지를 출력하여 동일한 인스타멤버에게 여러 번 호감 표시를 할 수 없음을 알림
 
 
 **[특이사항]**

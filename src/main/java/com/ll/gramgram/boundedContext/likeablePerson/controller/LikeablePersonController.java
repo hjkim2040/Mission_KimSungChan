@@ -48,6 +48,7 @@ public class LikeablePersonController {
             return rq.historyBack(createRsData);
         }
 
+
         return rq.redirectWithMsg("/likeablePerson/list", createRsData);
     }
 
