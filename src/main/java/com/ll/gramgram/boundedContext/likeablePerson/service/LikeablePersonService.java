@@ -6,6 +6,7 @@ import com.ll.gramgram.boundedContext.instaMember.service.InstaMemberService;
 import com.ll.gramgram.boundedContext.likeablePerson.entity.LikeablePerson;
 import com.ll.gramgram.boundedContext.likeablePerson.repository.LikeablePersonRepository;
 import com.ll.gramgram.boundedContext.member.entity.Member;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,10 +36,17 @@ public class LikeablePersonService {
         InstaMember fromInstaMember = member.getInstaMember();
         InstaMember toInstaMember = instaMemberService.findByUsernameOrCreate(username).getData();
 
+
         List<LikeablePerson> existingLikes = likeablePersonRepository.findByFromInstaMemberIdAndToInstaMemberId(fromInstaMember.getId(), toInstaMember.getId());
 
         if(!existingLikes.isEmpty()){
             return RsData.of("F-1","중복으로 호감표시를 할 수 없습니다.");
+        }
+
+        List<LikeablePerson> allFromInstaMember = likeablePersonRepository.findByFromInstaMemberId(fromInstaMember.getId());
+
+        if (allFromInstaMember.size() >= 10){
+            return RsData.of("F-1","11명 이상의 호감상대를 등록 할 수 없습니다.");
         }
 
         LikeablePerson likeablePerson = LikeablePerson
@@ -55,6 +63,10 @@ public class LikeablePersonService {
         toInstaMember.addToLikeablePerson(likeablePerson);
 
         return RsData.of("S-1", "입력하신 인스타유저(%s)를 호감상대로 등록되었습니다.".formatted(username), likeablePerson);
+
+
+
+
 
 
     }
@@ -87,5 +99,6 @@ public class LikeablePersonService {
         }
         return RsData.of("S-1", "삭제가능합니다.");
     }
+
 
 }

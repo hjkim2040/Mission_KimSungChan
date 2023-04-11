@@ -35,12 +35,14 @@
 - fromInstaMemberId 및 toInstaMemberId를 가진 LikeablePerson 객체가 이미 존재하는지 확인
 - existingLikes는 이러한 객체의 목록을 저장
 - 목록이 비어 있지 않은 경우, 즉 fromInstaMemberId 및 toInstaMemberId가 동일한 LikeablePerson 객체가 이미 존재하는 경우 오류 메시지 출력
-
+- LikeablePersonRepository에서 findByFromInstaMemberId 메서드를 호출하여 회원이 이미 10개 이상의 호감 상대를 가지고 있는지 확인
+- 반환된 리스트의 크기가 10보다 크면 11개 이상의 호감을 가질 수 없음을 알리는 오류 메시지를 출력
 
 
 
 **[특이사항]**
 
+- 강사님 힌트를 듣고 그걸 활용하여 중복 호감 표시 금지 기능을 구현하려 했으나 실패....
 
 
 **[추가, 보완 사항]**
