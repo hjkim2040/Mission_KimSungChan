@@ -95,6 +95,13 @@ public class LikeablePersonService {
     @Transactional
     public RsData delete(LikeablePerson likeablePerson) {
 
+        // 너가 생성한 좋아요가 사라졌어.
+        likeablePerson.getFromInstaMember().removeFromLikeablePerson(likeablePerson);
+
+        // 너가 받은 좋아요가 사라졌어.
+        likeablePerson.getToInstaMember().removeToLikeablePerson(likeablePerson);
+
+
         likeablePersonRepository.delete(likeablePerson);
         String toInstaMemberUsername = likeablePerson.getToInstaMember().getUsername();
         return RsData.of("S-1", "%s님에 대한 호감을 취소하였습니다.".formatted(toInstaMemberUsername));
