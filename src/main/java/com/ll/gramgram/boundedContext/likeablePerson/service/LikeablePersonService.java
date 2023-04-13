@@ -37,29 +37,6 @@ public class LikeablePersonService {
         InstaMember toInstaMember = instaMemberService.findByUsernameOrCreate(username).getData();
 
 
-        List<LikeablePerson> existingLikes = likeablePersonRepository.findByFromInstaMemberIdAndToInstaMemberId(fromInstaMember.getId(), toInstaMember.getId());
-
-
-
-        if(!existingLikes.isEmpty()){
-            LikeablePerson existingLike = existingLikes.get(0);
-            if (existingLike.getAttractiveTypeCode() != attractiveTypeCode) {
-                String oldAttractiveType = existingLike.getAttractiveTypeDisplayName();
-                existingLike.setAttractiveTypeCode(attractiveTypeCode);
-                likeablePersonRepository.save(existingLike);
-                String newAttractiveType = existingLike.getAttractiveTypeDisplayName();
-                return RsData.of("S-2", "%s에 대한 호감사유를 %s에서 %s으로 변경합니다.".formatted(username,oldAttractiveType,newAttractiveType), existingLike);
-            } else {
-                return RsData.of("F-1","중복으로 호감표시를 할 수 없습니다.");
-            }
-        }
-
-        List<LikeablePerson> allFromInstaMember = likeablePersonRepository.findByFromInstaMemberId(fromInstaMember.getId());
-
-        if (allFromInstaMember.size() >= AppConfig.getLikeablePersonFromMax()){
-            return RsData.of("F-1","11명 이상의 호감상대를 등록 할 수 없습니다.");
-        }
-
         LikeablePerson likeablePerson = LikeablePerson
                 .builder()
                 .fromInstaMember(fromInstaMember) // 호감을 표시하는 사람의 인스타 멤버
