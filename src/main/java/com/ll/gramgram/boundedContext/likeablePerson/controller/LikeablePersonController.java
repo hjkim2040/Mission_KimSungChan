@@ -27,22 +27,22 @@ public class LikeablePersonController {
     private final LikeablePersonService likeablePersonService;
 
     @PreAuthorize("isAuthenticated()")
-    @GetMapping("/add")
-    public String showAdd() {
-        return "usr/likeablePerson/add";
+    @GetMapping("/like")
+    public String showLike() {
+        return "usr/likeablePerson/like";
     }
 
     @AllArgsConstructor
     @Getter
-    public static class AddForm {
+    public static class LikeForm {
         private final String username;
         private final int attractiveTypeCode;
     }
 
     @PreAuthorize("isAuthenticated()")
-    @PostMapping("/add")
-    public String add(@Valid AddForm addForm) {
-        RsData<LikeablePerson> rsData = likeablePersonService.like(rq.getMember(),addForm.getUsername(),addForm.getAttractiveTypeCode());
+    @PostMapping("/like")
+    public String like(@Valid LikeForm likeForm) {
+        RsData<LikeablePerson> rsData = likeablePersonService.like(rq.getMember(),likeForm.getUsername(),likeForm.getAttractiveTypeCode());
         if (rsData.isFail()) {
             return rq.historyBack(rsData);
         }
@@ -68,15 +68,15 @@ public class LikeablePersonController {
 
     @PreAuthorize("isAuthenticated()")
     @DeleteMapping("/{id}")
-    public String delete(@PathVariable Long id) {
+    public String cancel(@PathVariable Long id) {
 
         LikeablePerson likeablePerson = likeablePersonService.findById(id).orElse(null);
 
-        RsData canActorDeleteRsData = likeablePersonService.canDelete(rq.getMember(), likeablePerson);
+        RsData canActorDeleteRsData = likeablePersonService.canCancel(rq.getMember(), likeablePerson);
 
         if (canActorDeleteRsData.isFail()) return rq.historyBack(canActorDeleteRsData);
 
-        RsData deleteRsData = likeablePersonService.delete(likeablePerson);
+        RsData deleteRsData = likeablePersonService.cancel(likeablePerson);
 
         if (deleteRsData.isFail()) return rq.historyBack(deleteRsData);
 
