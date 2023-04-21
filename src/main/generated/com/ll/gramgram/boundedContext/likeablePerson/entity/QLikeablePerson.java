@@ -1,13 +1,14 @@
 package com.ll.gramgram.boundedContext.likeablePerson.entity;
 
-import com.querydsl.core.types.Path;
-import com.querydsl.core.types.PathMetadata;
+import static com.querydsl.core.types.PathMetadataFactory.*;
+
 import com.querydsl.core.types.dsl.*;
 
+import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
-import java.time.LocalDateTime;
+import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
 
-import static com.querydsl.core.types.PathMetadataFactory.forVariable;
 
 /**
  * QLikeablePerson is a Querydsl query type for LikeablePerson
@@ -26,7 +27,7 @@ public class QLikeablePerson extends EntityPathBase<LikeablePerson> {
     public final NumberPath<Integer> attractiveTypeCode = createNumber("attractiveTypeCode", Integer.class);
 
     //inherited
-    public final DateTimePath<LocalDateTime> createDate = _super.createDate;
+    public final DateTimePath<java.time.LocalDateTime> createDate = _super.createDate;
 
     public final com.ll.gramgram.boundedContext.instaMember.entity.QInstaMember fromInstaMember;
 
@@ -65,3 +66,4 @@ public class QLikeablePerson extends EntityPathBase<LikeablePerson> {
     }
 
 }
+

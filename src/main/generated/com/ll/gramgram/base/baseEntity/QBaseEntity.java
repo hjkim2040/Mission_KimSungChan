@@ -1,16 +1,17 @@
 package com.ll.gramgram.base.baseEntity;
 
-import com.querydsl.core.types.Path;
+import static com.querydsl.core.types.PathMetadataFactory.*;
+
+import com.querydsl.core.types.dsl.*;
+
 import com.querydsl.core.types.PathMetadata;
-import com.querydsl.core.types.dsl.DateTimePath;
-import com.querydsl.core.types.dsl.EntityPathBase;
-import com.querydsl.core.types.dsl.NumberPath;
-
 import javax.annotation.processing.Generated;
-import java.time.LocalDateTime;
+import com.querydsl.core.types.Path;
 
-import static com.querydsl.core.types.PathMetadataFactory.forVariable;
 
+/**
+ * QBaseEntity is a Querydsl query type for BaseEntity
+ */
 @Generated("com.querydsl.codegen.DefaultSupertypeSerializer")
 public class QBaseEntity extends EntityPathBase<BaseEntity> {
 
@@ -18,7 +19,7 @@ public class QBaseEntity extends EntityPathBase<BaseEntity> {
 
     public static final QBaseEntity baseEntity = new QBaseEntity("baseEntity");
 
-    public final DateTimePath<LocalDateTime> createDate = createDateTime("createDate", java.time.LocalDateTime.class);
+    public final DateTimePath<java.time.LocalDateTime> createDate = createDateTime("createDate", java.time.LocalDateTime.class);
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
@@ -37,3 +38,4 @@ public class QBaseEntity extends EntityPathBase<BaseEntity> {
     }
 
 }
+

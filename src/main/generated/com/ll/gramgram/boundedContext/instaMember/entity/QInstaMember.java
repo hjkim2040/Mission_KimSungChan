@@ -1,15 +1,14 @@
 package com.ll.gramgram.boundedContext.instaMember.entity;
 
-import com.ll.gramgram.boundedContext.likeablePerson.entity.LikeablePerson;
-import com.ll.gramgram.boundedContext.likeablePerson.entity.QLikeablePerson;
-import com.querydsl.core.types.Path;
-import com.querydsl.core.types.PathMetadata;
+import static com.querydsl.core.types.PathMetadataFactory.*;
+
 import com.querydsl.core.types.dsl.*;
 
+import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
-import java.time.LocalDateTime;
+import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
 
-import static com.querydsl.core.types.PathMetadataFactory.forVariable;
 
 /**
  * QInstaMember is a Querydsl query type for InstaMember
@@ -24,9 +23,9 @@ public class QInstaMember extends EntityPathBase<InstaMember> {
     public final com.ll.gramgram.base.baseEntity.QBaseEntity _super = new com.ll.gramgram.base.baseEntity.QBaseEntity(this);
 
     //inherited
-    public final DateTimePath<LocalDateTime> createDate = _super.createDate;
+    public final DateTimePath<java.time.LocalDateTime> createDate = _super.createDate;
 
-    public final ListPath<LikeablePerson, QLikeablePerson> fromLikeablePeople = this.<com.ll.gramgram.boundedContext.likeablePerson.entity.LikeablePerson, com.ll.gramgram.boundedContext.likeablePerson.entity.QLikeablePerson>createList("fromLikeablePeople", com.ll.gramgram.boundedContext.likeablePerson.entity.LikeablePerson.class, com.ll.gramgram.boundedContext.likeablePerson.entity.QLikeablePerson.class, PathInits.DIRECT2);
+    public final ListPath<com.ll.gramgram.boundedContext.likeablePerson.entity.LikeablePerson, com.ll.gramgram.boundedContext.likeablePerson.entity.QLikeablePerson> fromLikeablePeople = this.<com.ll.gramgram.boundedContext.likeablePerson.entity.LikeablePerson, com.ll.gramgram.boundedContext.likeablePerson.entity.QLikeablePerson>createList("fromLikeablePeople", com.ll.gramgram.boundedContext.likeablePerson.entity.LikeablePerson.class, com.ll.gramgram.boundedContext.likeablePerson.entity.QLikeablePerson.class, PathInits.DIRECT2);
 
     public final StringPath gender = createString("gender");
 
@@ -53,3 +52,4 @@ public class QInstaMember extends EntityPathBase<InstaMember> {
     }
 
 }
+
