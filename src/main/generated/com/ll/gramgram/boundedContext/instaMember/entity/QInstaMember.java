@@ -33,8 +33,6 @@ public class QInstaMember extends EntityPathBase<InstaMember> {
     //inherited
     public final NumberPath<Long> id = _super.id;
 
-    public final ListPath<InstaMemberSnapshot, QInstaMemberSnapshot> instaMemberSnapshots = this.<InstaMemberSnapshot, QInstaMemberSnapshot>createList("instaMemberSnapshots", InstaMemberSnapshot.class, QInstaMemberSnapshot.class, PathInits.DIRECT2);
-
     //inherited
     public final NumberPath<Long> likes = _super.likes;
 
