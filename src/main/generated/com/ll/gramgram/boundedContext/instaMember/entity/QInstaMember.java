@@ -32,6 +32,18 @@ public class QInstaMember extends EntityPathBase<InstaMember> {
     //inherited
     public final NumberPath<Long> id = _super.id;
 
+    public final NumberPath<Long> likesCountByGenderManAndAttractiveTypeCode1 = createNumber("likesCountByGenderManAndAttractiveTypeCode1", Long.class);
+
+    public final NumberPath<Long> likesCountByGenderManAndAttractiveTypeCode2 = createNumber("likesCountByGenderManAndAttractiveTypeCode2", Long.class);
+
+    public final NumberPath<Long> likesCountByGenderManAndAttractiveTypeCode3 = createNumber("likesCountByGenderManAndAttractiveTypeCode3", Long.class);
+
+    public final NumberPath<Long> likesCountByGenderWomanAndAttractiveTypeCode1 = createNumber("likesCountByGenderWomanAndAttractiveTypeCode1", Long.class);
+
+    public final NumberPath<Long> likesCountByGenderWomanAndAttractiveTypeCode2 = createNumber("likesCountByGenderWomanAndAttractiveTypeCode2", Long.class);
+
+    public final NumberPath<Long> likesCountByGenderWomanAndAttractiveTypeCode3 = createNumber("likesCountByGenderWomanAndAttractiveTypeCode3", Long.class);
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> modifyDate = _super.modifyDate;
 
