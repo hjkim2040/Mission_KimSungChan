@@ -28,7 +28,6 @@ public class HomeController {
 
     @GetMapping("/usr/debugSession")
     @ResponseBody
-    @PreAuthorize("hasAuthority('admin')")
     public String showDebugSession(HttpSession session) {
         StringBuilder sb = new StringBuilder("Session content:\n");
 
