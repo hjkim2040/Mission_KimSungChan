@@ -22,6 +22,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Getter
 @Setter
 public class LikeablePerson extends BaseEntity {
+    private LocalDateTime modifyUnlockDate;
 
 
     @ManyToOne
