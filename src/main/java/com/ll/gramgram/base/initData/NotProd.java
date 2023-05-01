@@ -37,15 +37,13 @@ public class NotProd {
                 Member memberUser6ByKakao = memberService.whenSocialLogin("KAKAO", "KAKAO__2733178643").getData();
                 Member memberUser7ByGoogle = memberService.whenSocialLogin("GOOGLE", "GOOGLE__107665704144061371046").getData();
                 Member memberUser8ByNaver = memberService.whenSocialLogin("NAVER", "NAVER__gi4gQt0xSt5d-dzfb7iV9qwpQvyK2VPBrcJt9b4OYlg").getData();
-                Member memberUser9ByFacebook = memberService.whenSocialLogin("FACEBOOK", "FACEBOOK__").getData();
+                Member memberUser9ByFacebook = memberService.whenSocialLogin("FACEBOOK", "FACEBOOK__6267420483336855").getData();
 
                 instaMemberService.connect(memberUser2, "insta_user2", "M");
                 instaMemberService.connect(memberUser3, "insta_user3", "W");
                 instaMemberService.connect(memberUser4, "insta_user4", "M");
-                instaMemberService.connect(memberUser4, "insta_user5", "M");
+                instaMemberService.connect(memberUser5, "insta_user5", "M");
 
-                likeablePersonService.like(memberUser3, "insta_user4", 1);
-                likeablePersonService.like(memberUser3, "insta_user100", 2);
 
                 // 원활한 테스트와 개발을 위해서 자동으로 만들어지는 호감이 삭제, 수정이 가능하도록 쿨타임해제
                 LikeablePerson likeablePersonToinstaUser4 = likeablePersonService.like(memberUser3, "insta_user4", 1).getData();
