@@ -22,10 +22,18 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Entity
 @Getter
 @SuperBuilder
-public class InstaMember extends InstaMemberBase {
 
+public class InstaMember extends InstaMemberBase {
+    @Setter
     @Column(unique = true)
     private String username;
+
+    @Setter
+    @Column(unique = true)
+    private String oauthId;
+
+    @Setter
+    private String accessToken;
 
 
     @OneToMany(mappedBy = "fromInstaMember", cascade = {CascadeType.ALL})
