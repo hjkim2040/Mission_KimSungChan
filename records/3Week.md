@@ -157,6 +157,8 @@ public class LikeablePerson extends BaseEntity {
 
             modifyAttractionTypeCode(likeablePerson, attractiveTypeCode);
 
+            likeablePerson.setModifyUnlockDate(AppConfig.genLikeablePersonModifyUnlockDate());
+            
             String newAttractiveTypeDisplayName = likeablePerson.getAttractiveTypeDisplayName();
 
             return RsData.of("S-3", "%s님에 대한 호감사유를 %s에서 %s(으)로 변경합니다.".formatted(username, oldAttractiveTypeDisplayName, newAttractiveTypeDisplayName), likeablePerson);
@@ -167,6 +169,7 @@ public class LikeablePerson extends BaseEntity {
     }
 ```
 - `if (likeablePerson.isModifyUnlocked())`을 사용하여 쿨타임이 지났을 경우에만 수정 및 취소 할 수 있도록 함
+- 호감사유 변경 후 쿨타임이 갱신 되도록 구현
 - 쿨타임이 아직 활성화 상태인 경우 수정 및 취소 작업이 다시 수행 가능한 시간과 함께 오류 메시지를 반환
 - 네이버 클라우드 플랫폼을 이용한 배포 가이드를 따라 서버 설정
 - 수행 가능한 미션을 전부 진행하고 서버에 git clone을 해서 빌드 준비
