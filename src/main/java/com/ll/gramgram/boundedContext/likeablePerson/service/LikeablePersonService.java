@@ -59,12 +59,6 @@ public class LikeablePersonService {
         publisher.publishEvent(new EventAfterLike(this, likeablePerson));
 
         return RsData.of("S-1", "입력하신 인스타유저(%s)를 호감상대로 등록되었습니다.".formatted(username), likeablePerson);
-
-
-
-
-
-
     }
 
 
@@ -77,19 +71,24 @@ public class LikeablePersonService {
 
     @Transactional
     public RsData cancel(LikeablePerson likeablePerson) {
+        if (likeablePerson.isModifyUnlocked()) {
 
-        publisher.publishEvent(new EventBeforeCancelLike(this, likeablePerson));
+            publisher.publishEvent(new EventBeforeCancelLike(this, likeablePerson));
 
-        // 너가 생성한 좋아요가 사라졌어.
-        likeablePerson.getFromInstaMember().removeFromLikeablePerson(likeablePerson);
+            // 너가 생성한 좋아요가 사라졌어.
+            likeablePerson.getFromInstaMember().removeFromLikeablePerson(likeablePerson);
 
-        // 너가 받은 좋아요가 사라졌어.
-        likeablePerson.getToInstaMember().removeToLikeablePerson(likeablePerson);
+            // 너가 받은 좋아요가 사라졌어.
+            likeablePerson.getToInstaMember().removeToLikeablePerson(likeablePerson);
 
 
-        likeablePersonRepository.delete(likeablePerson);
-        String toInstaMemberUsername = likeablePerson.getToInstaMember().getUsername();
-        return RsData.of("S-1", "%s님에 대한 호감을 취소하였습니다.".formatted(toInstaMemberUsername));
+            likeablePersonRepository.delete(likeablePerson);
+            String toInstaMemberUsername = likeablePerson.getToInstaMember().getUsername();
+            return RsData.of("S-1", "%s님에 대한 호감을 취소하였습니다.".formatted(toInstaMemberUsername));
+        }else{
+            String unlockDateRemain = likeablePerson.getModifyUnlockDateRemainStrHuman();
+            return RsData.of("F-1","최소할 수 없습니다. %s 에 다시 시도해주세요.".formatted(unlockDateRemain));
+        }
     }
     public RsData canCancel(Member actor, LikeablePerson likeablePerson) {
         if (likeablePerson == null) return RsData.of("F-1", "이미 삭제되었습니다.");
@@ -159,19 +158,24 @@ public class LikeablePersonService {
     }
     @Transactional
     public RsData<LikeablePerson> modifyAttractive(Member actor, LikeablePerson likeablePerson, int attractiveTypeCode) {
-        RsData canModifyRsData = canModifyLike(actor, likeablePerson);
+        if (likeablePerson.isModifyUnlocked()) {
+            RsData canModifyRsData = canModifyLike(actor, likeablePerson);
 
-        if (canModifyRsData.isFail()) {
-            return canModifyRsData;
+            if (canModifyRsData.isFail()) {
+                return canModifyRsData;
+            }
+            String oldAttractiveTypeDisplayName = likeablePerson.getAttractiveTypeDisplayName();
+            String username = likeablePerson.getToInstaMember().getUsername();
+
+            modifyAttractionTypeCode(likeablePerson, attractiveTypeCode);
+
+            String newAttractiveTypeDisplayName = likeablePerson.getAttractiveTypeDisplayName();
+
+            return RsData.of("S-3", "%s님에 대한 호감사유를 %s에서 %s(으)로 변경합니다.".formatted(username, oldAttractiveTypeDisplayName, newAttractiveTypeDisplayName), likeablePerson);
+        }else{
+            String unlockDateRemain = likeablePerson.getModifyUnlockDateRemainStrHuman();
+            return RsData.of("F-1", "호감사유 변경이 불가능합니다. %s 에 다시 시도해주세요.".formatted(unlockDateRemain));
         }
-        String oldAttractiveTypeDisplayName = likeablePerson.getAttractiveTypeDisplayName();
-        String username = likeablePerson.getToInstaMember().getUsername();
-
-        modifyAttractionTypeCode(likeablePerson, attractiveTypeCode);
-
-        String newAttractiveTypeDisplayName = likeablePerson.getAttractiveTypeDisplayName();
-
-        return RsData.of("S-3", "%s님에 대한 호감사유를 %s에서 %s(으)로 변경합니다.".formatted(username, oldAttractiveTypeDisplayName, newAttractiveTypeDisplayName), likeablePerson);
     }
 
     private RsData<LikeablePerson> modifyAttractive(Member actor, String username, int attractiveTypeCode) {
