@@ -16,6 +16,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -159,6 +160,8 @@ public class LikeablePersonService {
     @Transactional
     public RsData<LikeablePerson> modifyAttractive(Member actor, LikeablePerson likeablePerson, int attractiveTypeCode) {
         if (likeablePerson.isModifyUnlocked()) {
+
+
             RsData canModifyRsData = canModifyLike(actor, likeablePerson);
 
             if (canModifyRsData.isFail()) {
@@ -168,6 +171,8 @@ public class LikeablePersonService {
             String username = likeablePerson.getToInstaMember().getUsername();
 
             modifyAttractionTypeCode(likeablePerson, attractiveTypeCode);
+
+            likeablePerson.setModifyUnlockDate(AppConfig.genLikeablePersonModifyUnlockDate());
 
             String newAttractiveTypeDisplayName = likeablePerson.getAttractiveTypeDisplayName();
 
