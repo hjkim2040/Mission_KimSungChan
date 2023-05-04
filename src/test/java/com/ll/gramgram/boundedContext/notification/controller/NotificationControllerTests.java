@@ -14,6 +14,10 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.not;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.List;
 
@@ -56,5 +60,38 @@ public class NotificationControllerTests {
                 .count();
 
         assertThat(unreadCount).isEqualTo(0);
+    }
+    @Test
+    @DisplayName("아직 읽지 않은 알림이 있을 때 상단바에 인디케이터 표시")
+    @WithUserDetails("user4")
+    void t002() throws Exception {
+        // WHEN
+        ResultActions resultActions = mvc
+                .perform(get("/usr/home/about"))
+                .andDo(print());
+
+        // THEN
+        resultActions
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(content().string(containsString("""
+                        data-test="hasUnreadNotifications"
+                        """.stripIndent().trim())));
+    }
+
+    @Test
+    @DisplayName("아직 읽지 않은 알림이 있을 때, 알림리스트에 접속하면 상단바에 인디케이터 표시가 더 이상 안됨")
+    @WithUserDetails("user4")
+    void t003() throws Exception {
+        // WHEN
+        ResultActions resultActions = mvc
+                .perform(get("/usr/notification/list"))
+                .andDo(print());
+
+        // THEN
+        resultActions
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(content().string(not(containsString("""
+                        data-test="hasUnreadNotifications"
+                        """.stripIndent().trim()))));
     }
 }
