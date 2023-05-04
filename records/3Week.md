@@ -176,7 +176,7 @@ public class LikeablePerson extends BaseEntity {
 - 도커를 이용해 배포
 - `http://서버IP:포트/`에 접속해 서버 및 배포가 잘 되는지 확인
 - 운영서버에서 각종 소셜로그인이 잘 연결 되는지 확인
-- 도메인 구매 후 IP부여(도메인 이름 : wqe.be)
+- 도메인 구매 후 IP부여(도메인 이름 : mywk.xyz)
 
 
 
