@@ -188,3 +188,5 @@ public class LikeablePerson extends BaseEntity {
 
 **[추가, 보완 사항]**
 
+- 강사님의 해설 코드를 참고하여 리팩토링
+- 리팩토링 버전으로 다시 배포
