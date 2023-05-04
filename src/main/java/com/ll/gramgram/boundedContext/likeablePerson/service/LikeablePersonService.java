@@ -102,7 +102,7 @@ public class LikeablePersonService {
         if (actorInstaMemberId != fromInstaMemberId) {
             return RsData.of("F-1", "취소할 권한이 없습니다.");
         }
-        if (!likeablePerson.isModifyUnlocked()) return RsData.of("F-3", "아직 취소할 수 없습니다. %s에 취소가 가능합니다.".formatted(likeablePerson.getModifyUnlockDateRemainStrHuman()));
+        if (!likeablePerson.isModifyUnlocked()) return RsData.of("F-3", "아직 취소할 수 없습니다. %s에는 가능합니다.".formatted(likeablePerson.getModifyUnlockDateRemainStrHuman()));
 
         return RsData.of("S-1", "취소가 가능합니다.");
     }
@@ -164,7 +164,7 @@ public class LikeablePersonService {
         if (likeablePerson.isModifyUnlocked()) {
 
 
-            RsData canModifyRsData = canModifyLike(actor, likeablePerson);
+            RsData canModifyRsData = canModify(actor, likeablePerson);
 
             if (canModifyRsData.isFail()) {
                 return canModifyRsData;
@@ -210,7 +210,7 @@ public class LikeablePersonService {
         }
     }
 
-    public RsData canModifyLike(Member actor, LikeablePerson likeablePerson) {
+    public RsData canModify(Member actor, LikeablePerson likeablePerson) {
         if (!actor.hasConnectedInstaMember()) {
             return RsData.of("F-1", "먼저 본인의 인스타그램 아이디를 입력해주세요.");
         }
@@ -218,11 +218,12 @@ public class LikeablePersonService {
         InstaMember fromInstaMember = actor.getInstaMember();
 
         if (!Objects.equals(likeablePerson.getFromInstaMember().getId(), fromInstaMember.getId())) {
-            return RsData.of("F-2", "해당 호감표시를 취소할 권한이 없습니다.");
+            return RsData.of("F-2", "해당 호감표시에 대해서 사유변경을 수행할 권한이 없습니다.");
         }
 
+        if (!likeablePerson.isModifyUnlocked()) return RsData.of("F-3", "아직 호감사유변경을 할 수 없습니다. %s에는 가능합니다.".formatted(likeablePerson.getModifyUnlockDateRemainStrHuman()));
 
-        return RsData.of("S-1", "호감표시취소가 가능합니다.");
+        return RsData.of("S-1", "호감사유변경이 가능합니다.");
     }
 
 }
