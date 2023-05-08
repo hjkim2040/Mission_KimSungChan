@@ -19,6 +19,7 @@ import org.springframework.context.MessageSource;
 
 import java.util.Date;
 import java.util.Locale;
+import java.util.Map;
 
 @Component
 @RequestScope
@@ -156,5 +157,10 @@ public class Rq {
         if (locale == null) locale = localeResolver.resolveLocale(req);
 
         return locale;
+    }
+    public String getParamsJsonStr() {
+        Map<String, String[]> parameterMap = req.getParameterMap();
+
+        return Ut.json.toStr(parameterMap);
     }
 }
