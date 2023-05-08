@@ -18,3 +18,7 @@ logging:
     com.ll.gramgram: INFO
     org.hibernate.orm.jdbc.bind: INFO
     org.hibernate.orm.jdbc.extract: INFO
+
+custom:
+  site:
+    baseUrl: https://mywk.xyz

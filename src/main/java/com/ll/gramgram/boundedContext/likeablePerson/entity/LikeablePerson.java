@@ -8,13 +8,10 @@ import com.ll.gramgram.standard.util.Ut;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-import static jakarta.persistence.GenerationType.IDENTITY;
 
 @SuperBuilder
 @NoArgsConstructor
@@ -42,7 +39,7 @@ public class LikeablePerson extends BaseEntity {
 
     // 초 단위에서 올림 해주세요.
     public String getModifyUnlockDateRemainStrHuman() {
-        return "2시간 16분";
+        return Ut.time.diffFormat1Human(LocalDateTime.now(), modifyUnlockDate);
     }
     public RsData updateAttractionTypeCode(int attractiveTypeCode) {
         if (this.attractiveTypeCode == attractiveTypeCode) {

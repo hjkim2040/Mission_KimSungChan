@@ -138,4 +138,5 @@ public class InstaMemberControllerTests {
 
         assertThat(member.getInstaMember()).isEqualTo(instaMember);
     }
+
 }
