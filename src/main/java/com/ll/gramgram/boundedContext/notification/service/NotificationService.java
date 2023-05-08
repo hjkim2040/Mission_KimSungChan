@@ -18,7 +18,7 @@ public class NotificationService {
     private final NotificationRepository notificationRepository;
 
     public List<Notification> findByToInstaMember(InstaMember toInstaMember) {
-        return notificationRepository.findByToInstaMember(toInstaMember);
+        return notificationRepository.findByToInstaMemberOrderByIdDesc(toInstaMember);
     }
     @Transactional
     public RsData<Notification> makeLike(LikeablePerson likeablePerson) {
@@ -46,7 +46,7 @@ public class NotificationService {
         return RsData.of("S-1", "알림 메세지가 생성되었습니다.", notification);
     }
     public List<Notification> findByToInstaMember_username(String username) {
-        return notificationRepository.findByToInstaMember_username(username);
+        return notificationRepository.findByToInstaMember_usernameOrderByIdDesc(username);
     }
 
     @Transactional
