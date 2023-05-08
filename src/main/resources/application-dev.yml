@@ -8,3 +8,6 @@ server:
 custom:
   site:
     baseUrl: https://localhost
+spring:
+  thymeleaf:
+    cache: false

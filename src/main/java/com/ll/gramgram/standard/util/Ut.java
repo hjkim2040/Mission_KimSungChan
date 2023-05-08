@@ -1,5 +1,8 @@
 package com.ll.gramgram.standard.util;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -11,14 +14,27 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.Map;
 
 public class Ut {
+    public static class json {
+
+        public static String toStr(Map map) {
+            try {
+                return new ObjectMapper().writeValueAsString(map);
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    ;
     public static class time {
         public static String diffFormat1Human(LocalDateTime time1, LocalDateTime time2) {
             String suffix = time1.isAfter(time2) ? "전" : "후";
 
             // 두개의 시간의 차이를 초로 환산
-            long diff = ChronoUnit.SECONDS.between(time1, time2);
+            long diff = Math.abs(ChronoUnit.SECONDS.between(time1, time2));
 
             long diffSeconds = diff % 60; // 초 부분만
             long diffMinutes = diff / (60) % 60; // 분 부분만
@@ -31,6 +47,8 @@ public class Ut {
             if (diffHours > 0) sb.append(diffHours).append("시간 ");
             if (diffMinutes > 0) sb.append(diffMinutes).append("분 ");
             if (diffSeconds > 0) sb.append(diffSeconds).append("초 ");
+
+            if ( sb.isEmpty() ) sb.append("1초 ");
 
             return sb.append(suffix).toString();
         }
