@@ -8,11 +8,11 @@
 
 <main layout:fragment="main" class="flex-grow flex items-center justify-center">
 
-    <div className="hidden" id="msg-loginFormNeedInputUsername" th:text="#{c.loginFormNeedInputUsername}"></div>
-    <div className="hidden" id="msg-loginFormNeedInputUsernameMoreThan"
+    <div class="hidden" id="msg-loginFormNeedInputUsername" th:text="#{c.loginFormNeedInputUsername}"></div>
+    <div class="hidden" id="msg-loginFormNeedInputUsernameMoreThan"
          th:text="${@rq.getCText('c.loginFormNeedInputUsernameMoreThan', loginFormInputUsernameValueMinLength)}"></div>
-    <div className="hidden" id="msg-loginFormNeedInputPassword" th:text="#{c.loginFormNeedInputPassword}"></div>
-    <div className="hidden" id="msg-loginFormNeedInputPasswordMoreThan"
+    <div class="hidden" id="msg-loginFormNeedInputPassword" th:text="#{c.loginFormNeedInputPassword}"></div>
+    <div class="hidden" id="msg-loginFormNeedInputPasswordMoreThan"
          th:text="#{c.loginFormNeedInputPasswordMoreThan(${loginFormInputPasswordValueMinLength})}"></div>
 
     <script>
