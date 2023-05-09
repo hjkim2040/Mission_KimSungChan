@@ -32,4 +32,4 @@ custom:
       max: 10
 
   site:
-    baseUrl: http://localhost
+    baseUrl: https://mywk.xyz
