@@ -17,9 +17,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -215,6 +217,12 @@ public class LikeablePersonService {
         if (!likeablePerson.isModifyUnlocked()) return RsData.of("F-3", "아직 호감사유변경을 할 수 없습니다. %s에는 가능합니다.".formatted(likeablePerson.getModifyUnlockDateRemainStrHuman()));
 
         return RsData.of("S-1", "호감사유변경이 가능합니다.");
+    }
+    public List<LikeablePerson> findByToInstaMemberAndGenderAndAttractiveTypeCode(String username, String gender, int attractiveTypeCode, int sortCode) {
+        return findByToInstaMemberAndGenderAndAttractiveTypeCode(instaMemberService.findByUsername(username).get(), gender, attractiveTypeCode, sortCode);
+    }
+    public List<LikeablePerson> findByToInstaMemberAndGenderAndAttractiveTypeCode(InstaMember instaMember, String gender, int attractiveTypeCode, int sortCode) {
+        return likeablePersonRepository.findQslByToInstaMemberAndGenderAndAttractiveTypeCode(instaMember, gender, attractiveTypeCode, sortCode);
     }
 
 }
